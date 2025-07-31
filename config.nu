@@ -17,6 +17,7 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
+use aliases/git/ *
 overlay use nupm/nupm/
 let oh_my_posh_themes = $nu.data-dir | path join oh-my-posh themes
 let oh_my_posh_theme = $oh_my_posh_themes | path join 1_shell.omp.json

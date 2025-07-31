@@ -2,3 +2,5 @@
 !/config.nu
 !/env.nu
 !/.gitignore
+!/aliases
+!/aliases/*
