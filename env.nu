@@ -88,8 +88,10 @@ if not ($ZOXIDE_INIT_PATH | path exists) {
 
 # Better autocompletions
 $env.CARAPACE_BRIDGES = 'inshellisense' # optional
-const carapace_init = ($AUTOLOAD_DIR | path join 'carapace-init.nu')
-carapace _carapace nushell | save --force $carapace_init
+const CARAPACE_INIT = ($AUTOLOAD_DIR | path join 'carapace-init.nu')
+if not ($CARAPACE_INIT | path exists) {
+    carapace _carapace nushell | save $CARAPACE_INIT
+}
 
 # Plugin manager install
 def _load_folders_from_repo [repo: string, folders: list<string>] {
