@@ -1,0 +1,4 @@
+*
+!/config.nu
+!/env.nu
+!/.gitignore
