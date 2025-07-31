@@ -81,7 +81,10 @@ $packages | each { |e|
 const AUTOLOAD_DIR = $nu.data-dir | path join "vendor/autoload"
 mkdir $AUTOLOAD_DIR
 
-zoxide init nushell | save -f ($AUTOLOAD_DIR | path join zoxide.nu)
+const ZOXIDE_INIT_PATH = $nu.data-dir | path join .zoxide.nu
+if not ($ZOXIDE_INIT_PATH | path exists) {
+    zoxide init nushell | save $ZOXIDE_INIT_PATH
+}
 
 # Better autocompletions
 $env.CARAPACE_BRIDGES = 'inshellisense' # optional
