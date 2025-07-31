@@ -46,7 +46,7 @@ let packages = match $os {
         if $is_termux {
             {
                 carapace : 'pkg install carapace'
-                oh-my-posh: 'curl -s https://ohmyposh.dev/install.sh | bash -s'
+                oh-my-posh: 'pkg install oh-my-posh'
                 zoxide: 'pkg install zoxide'
             }
         } else {

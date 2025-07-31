@@ -24,5 +24,5 @@ if not ($oh_my_posh_theme | path exists) {
     print 'Load theme from remote'
     mkdir $oh_my_posh_themes
     oh-my-posh config export --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/1_shell.omp.json --output $oh_my_posh_theme
-} 
+}
 oh-my-posh init nu --config $oh_my_posh_theme
