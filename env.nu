@@ -16,9 +16,9 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
-if length(which code) != 0 {
+if (which code | length) != 0 {
     $env.EDITOR = "code"
-} else if length(which nvim) != 0 {
+} else if (which nvim | length) != 0 {
     $env.EDITOR = "nvim"
 } else {
     $env.EDITOR = "vi"
