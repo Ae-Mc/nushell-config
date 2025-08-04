@@ -61,6 +61,18 @@ let packages = match $os {
         )
         zoxide: 'winget install ajeetdsouza.zoxide --scope machine'
     }
+    'linux' => {
+        if (which lsb_release | is-not-empty) {
+            if (lsb_release -i | str downcase) =~ 'ubuntu' {
+                {
+                    carapace: 'sudo apt install carapace'
+                    oh-my-posh: 'curl -s https://ohmyposh.dev/install.sh | bash -s'
+                    zoxide: 'sudo apt install zoxide'
+                }
+            }
+        }
+        error make {msg: "Unsupported platform"}
+    }
     * => {
         error make {msg: "Unsupported platform"}
     }
