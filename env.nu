@@ -35,7 +35,16 @@ const os = $nu.os-info.name;
 
 match $os {
     'windows' => {
-        $env.Path = ($env.Path | prepend 'C:\Program Files\WinGet\Links')
+        def _append_path_if_exists [p: string] {
+            if ($p | path expand | path exists) {
+                $env.Path = ($env.Path | prepend ($p | path expand))
+            }
+        }
+        _append_path_if_exists 'C:/Program Files/carapace/bin'
+        _append_path_if_exists 'C:/Program Files/oh-my-posh/bin'
+        _append_path_if_exists 'C:/Program Files/zoxide/bin'
+        _append_path_if_exists 'C:/Program Files/WinGet/Links'
+        _append_path_if_exists '~/AppData/Local/Microsoft/WinGet/Links/'
     }
 }
 
@@ -45,7 +54,7 @@ let packages = match $os {
         let is_termux = which termux-setup-storage | is-not-empty
         if $is_termux {
             {
-                carapace : 'pkg install carapace'
+                carapace: 'pkg install carapace'
                 oh-my-posh: 'pkg install oh-my-posh'
                 zoxide: 'pkg install zoxide'
             }
