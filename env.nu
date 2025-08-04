@@ -32,19 +32,28 @@ if not ($DOWNLOADABLE_MODULES_DIR | path exists)  {
 }
 
 const os = $nu.os-info.name;
+mut is_ubuntu = false
+def --env _prepend_path_if_exists [p: path] {
+    if ($p | path expand | path exists) {
+        $env.PATH = ($env.PATH | prepend ($p | path expand))
+    }
+}
 
 match $os {
     'windows' => {
-        def _append_path_if_exists [p: string] {
-            if ($p | path expand | path exists) {
-                $env.Path = ($env.Path | prepend ($p | path expand))
+        _prepend_path_if_exists 'C:/Program Files/carapace/bin'
+        _prepend_path_if_exists 'C:/Program Files/oh-my-posh/bin'
+        _prepend_path_if_exists 'C:/Program Files/zoxide/bin'
+        _prepend_path_if_exists 'C:/Program Files/WinGet/Links'
+        _prepend_path_if_exists '~/AppData/Local/Microsoft/WinGet/Links/'
+    }
+    'linux' => {
+        if (which lsb_release | is-not-empty) {
+            if (lsb_release -i | str downcase) =~ 'ubuntu' {
+                $is_ubuntu = true
+                _prepend_path_if_exists '~/.local/bin/'
             }
         }
-        _append_path_if_exists 'C:/Program Files/carapace/bin'
-        _append_path_if_exists 'C:/Program Files/oh-my-posh/bin'
-        _append_path_if_exists 'C:/Program Files/zoxide/bin'
-        _append_path_if_exists 'C:/Program Files/WinGet/Links'
-        _append_path_if_exists '~/AppData/Local/Microsoft/WinGet/Links/'
     }
 }
 
@@ -71,19 +80,21 @@ let packages = match $os {
         zoxide: 'winget install ajeetdsouza.zoxide --scope machine'
     }
     'linux' => {
-        if (which lsb_release | is-not-empty) {
-            if (lsb_release -i | str downcase) =~ 'ubuntu' {
-                {
-                    carapace: 'sudo apt install carapace'
-                    oh-my-posh: 'curl -s https://ohmyposh.dev/install.sh | bash -s'
-                    zoxide: 'sudo apt install zoxide'
-                }
+        if ($is_ubuntu) {
+            {
+                carapace: `
+                (sudo sh -c "echo 'deb [trusted=yes] https://apt.fury.io/rsteube/ /' > /etc/apt/sources.list.d/fury.list" ) ;
+                sudo apt-get update ; sudo apt-get install carapace-bin
+                `
+                oh-my-posh: 'curl -s https://ohmyposh.dev/install.sh | bash -s'
+                zoxide: 'curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh'
             }
+        } else {
+            print {"Unsupported platform! Use at your own risk!"}
         }
-        error make {msg: "Unsupported platform"}
     }
     * => {
-        error make {msg: "Unsupported platform"}
+        print {"Unsupported platform! Use at your own risk!"}
     }
 } | transpose cmd install
 
