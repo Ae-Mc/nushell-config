@@ -18,7 +18,6 @@
 # them for future reference.
 
 use aliases/git/ *
-overlay use nupm/nupm/
 let oh_my_posh = $nu.config-path | path dirname | path join oh-my-posh
 let oh_my_posh_theme = $oh_my_posh | path join themes 1_shell.omp.json
 oh-my-posh init nu --config $oh_my_posh_theme

@@ -25,12 +25,6 @@ if (which code | length) != 0 {
 }
 $env.config.edit_mode = "vi"
 
-let DOWNLOADABLE_MODULES_DIR = ($nu.config-path | path dirname | path join "modules-ext")
-$env.NU_LIB_DIRS ++= [$DOWNLOADABLE_MODULES_DIR]
-if not ($DOWNLOADABLE_MODULES_DIR | path exists)  {
-    mkdir $DOWNLOADABLE_MODULES_DIR
-}
-
 const os = $nu.os-info.name;
 mut is_ubuntu = false
 def --env _prepend_path_if_exists [p: path] {
@@ -120,24 +114,3 @@ zoxide init nushell | save -f $ZOXIDE_INIT_PATH
 $env.CARAPACE_BRIDGES = 'inshellisense' # optional
 const CARAPACE_INIT = ($AUTOLOAD_DIR | path join 'carapace-init.nu')
 carapace _carapace nushell | save -f $CARAPACE_INIT
-
-# Plugin manager install
-def _load_folders_from_repo [repo: string, folders: list<string>] {
-    git clone -n --depth=1 --filter=tree:0 $repo
-    let repo_name = ($repo | path basename)
-    print $repo_name
-    cd $repo_name
-    let folders_str = ($folders | str join " ")
-    git sparse-checkout set --no-cone $folders_str
-    git checkout
-    cd ..
-}
-
-let NUPM_PATH = ($DOWNLOADABLE_MODULES_DIR | path join "nupm")
-let current_folder = pwd
-if not ($NUPM_PATH | path exists) {
-    cd $DOWNLOADABLE_MODULES_DIR
-    _load_folders_from_repo https://github.com/nushell/nupm ["nupm"]
-    cd $current_folder
-}
-$env.NU_LIB_DIRS ++= [ $DOWNLOADABLE_MODULES_DIR ]
