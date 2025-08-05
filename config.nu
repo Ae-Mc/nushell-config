@@ -19,12 +19,7 @@
 
 use aliases/git/ *
 overlay use nupm/nupm/
-let oh_my_posh_themes = $nu.data-dir | path join oh-my-posh themes
-let oh_my_posh_theme = $oh_my_posh_themes | path join 1_shell.omp.json
-if not ($oh_my_posh_theme | path exists) {
-    print 'Load theme from remote'
-    mkdir $oh_my_posh_themes
-    oh-my-posh config export --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/1_shell.omp.json --output $oh_my_posh_theme
-}
+let oh_my_posh = $nu.config-path | path dirname | path join oh-my-posh
+let oh_my_posh_theme = $oh_my_posh | path join themes 1_shell.omp.json
 oh-my-posh init nu --config $oh_my_posh_theme
 source ($nu.data-dir | path join .zoxide.nu)
