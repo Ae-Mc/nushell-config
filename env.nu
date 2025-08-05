@@ -114,16 +114,12 @@ const AUTOLOAD_DIR = $nu.data-dir | path join "vendor/autoload"
 mkdir $AUTOLOAD_DIR
 
 const ZOXIDE_INIT_PATH = $nu.data-dir | path join .zoxide.nu
-if not ($ZOXIDE_INIT_PATH | path exists) {
-    zoxide init nushell | save $ZOXIDE_INIT_PATH
-}
+zoxide init nushell | save -f $ZOXIDE_INIT_PATH
 
 # Better autocompletions
 $env.CARAPACE_BRIDGES = 'inshellisense' # optional
 const CARAPACE_INIT = ($AUTOLOAD_DIR | path join 'carapace-init.nu')
-if not ($CARAPACE_INIT | path exists) {
-    carapace _carapace nushell | save $CARAPACE_INIT
-}
+carapace _carapace nushell | save -f $CARAPACE_INIT
 
 # Plugin manager install
 def _load_folders_from_repo [repo: string, folders: list<string>] {
