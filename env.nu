@@ -66,7 +66,7 @@ let packages = match $os {
         }
     }
     'windows' => {
-        carapace: 'winget install -e --id rsteube.Carapace'
+        carapace: 'winget install rsteube.Carapace --scope machine'
         oh-my-posh: (
             'winget install JanDeDobbeleer.OhMyPosh'
             + ' --source winget --scope machine --force'
