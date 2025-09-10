@@ -208,6 +208,7 @@ export alias gsu = git submodule update
 export alias gsw = git switch
 export alias gswc = git switch --create
 
+export alias gt = git tag
 export alias gts = git tag --sign
 export def gtv [] {
     git tag | lines | sort
