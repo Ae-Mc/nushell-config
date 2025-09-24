@@ -3,6 +3,6 @@
 !/env.nu
 !/.gitignore
 !/aliases
-!/aliases/*
+!/aliases/**
 !/oh-my-posh
-!/oh-my-posh/*
+!/oh-my-posh/**
