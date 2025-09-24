@@ -108,7 +108,7 @@ const AUTOLOAD_DIR = $nu.data-dir | path join "vendor/autoload"
 mkdir $AUTOLOAD_DIR
 
 const ZOXIDE_INIT_PATH = $nu.data-dir | path join .zoxide.nu
-zoxide init nushell | save -f $ZOXIDE_INIT_PATH
+zoxide init --no-cmd nushell | save -f $ZOXIDE_INIT_PATH
 
 # Better autocompletions
 $env.CARAPACE_BRIDGES = 'inshellisense' # optional

@@ -4,5 +4,7 @@
 !/.gitignore
 !/aliases
 !/aliases/**
+!/completions
+!/completions/**
 !/oh-my-posh
 !/oh-my-posh/**
