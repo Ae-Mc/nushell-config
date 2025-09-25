@@ -25,6 +25,7 @@ source ($nu.data-dir | path join .zoxide.nu)
 use completions/arc-completions/ *
 use completions/zoxide-completions.nu *
 $env.config.completions.algorithm = 'fuzzy'
+$env.config.highlight_resolved_externals = true
 
 alias cd = z
 use aliases/arc/ *
