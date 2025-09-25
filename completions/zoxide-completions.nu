@@ -52,20 +52,59 @@ export extern zoxide [
   --version(-V)         # Print version
 ]
 
+const os_separator = if ($nu.os-info.name == "windows") { '\' } else { '/' }
+
 def "nu-complete z path" [context: string] {
-  let spans = $context | split row " "
-  let path_parts = $spans | skip 1
-  let path = $path_parts | str join " "
-  mut $result = []
-  mut result = ^zoxide query -l --exclude $env.PWD ...$path_parts | lines | each { |e| {"value": ($e | path basename), "description": $e}} | uniq-by value
-  if ($result | is-empty) {
-    let pwd_length = ($env.PWD | str length)
-    mut $result = glob ($path + '*') -F
-      | str substring ($pwd_length + 1)..
-      | each { |e| (if ($path | str starts-with './') {'./'} else {''}) + $e + '/'}
-    return (if ($result | is-empty) { [null] } else { $result })
+  let spans = $context | str trim --left | split row " "
+  let last = $spans | last
+  let separator = '/'
+  let parts = $spans
+    | skip 1
+    | each { str downcase | str replace -ar '[/\\]' $separator }
+  let zoxide_parts = $parts
+    | each { str replace -ar '[/\\]' $os_separator }
+  let paths = ^zoxide query -l --exclude $env.PWD ...$zoxide_parts
+    | lines
+    | each { str replace -ar '[/\\]' $separator }
+  let result = $paths
+    | each { |dir|
+        if ($parts | length) <= 1 {
+          {value: $dir}
+        } else {
+          let dir_lower = $dir | str downcase
+          let rem_start = $parts | drop 1 | reduce --fold 0 { |part, rem_start|
+            ($dir_lower | str index-of --range $rem_start.. $part) + ($part | str length)
+          }
+          {
+            value: ($dir | str substring $rem_start..),
+            description: $dir
+          }
+        }
+      }
+    | if (($in | is-empty) and ($spans | length) <= 2) {
+        glob -d 1 ($last + '*') -F
+          | each { |it|
+            let x = $it
+              | str substring ($last | path expand | str length)..
+              | if $last ends-with '/' {
+                  $in | str substring 1..
+                } else if ($last ends-with '/.') {
+                  $in | str substring 2..
+                } else { $in }
+            return {
+              "value": ($last + $x + '/')
+            }
+          }
+          | if ($in | is-empty) { [null] } else { $in }
+      } else { $in }
+  {
+    options: {
+      sort: false,
+      completion_algorithm: "substring",
+      case_sensitive: false,
+    }
+    completions: ($result | insert style steelblue1b)
   }
-  return $result
 }
 
 export def zoxide_completer_generator [] {
@@ -75,8 +114,8 @@ export def zoxide_completer_generator [] {
   }
 }
 
-export def --env --wrapped z [
+export def z --env --wrapped [
   ...rest: string@"nu-complete z path"
 ] {
-  __zoxide_z ...$rest
+  __zoxide_z ...($rest | each { str replace -ar '[/\\]' $os_separator})
 }
