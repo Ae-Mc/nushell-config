@@ -71,9 +71,7 @@ export def gpristine [] {
     git clean -d --force -x
 }
 export alias gcm = git checkout (git_main_branch)
-export def gcmsg [message: string] {
-    git commit --message $message
-}
+export alias gcmsg = git commit --message
 export alias gco = git checkout
 export alias gcor = git checkout --recurse-submodules
 export alias gcount = git shortlog --summary --numbered
