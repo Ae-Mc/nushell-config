@@ -75,16 +75,11 @@ export alias al = arc pull
 export alias alg = arc log --stat
 export alias algp = arc log --stat --patch
 export alias algg = arc log --graph
-export alias algga = arc log --graph --decorate --all
 export alias algm = arc log --graph --max-count=10
-export alias alo = arc log --oneline --decorate
-export alias alod = arc log --graph $'--pretty=%Cred%h%Creset -%C(char lp)auto(char rp)%d%Creset %s %Cgreen(char lp)%ad(char rp) %C(char lp)bold blue(char rp)<%an>%Creset'
-export alias alods = arc log --graph $'--pretty=%Cred%h%Creset -%C(char lp)auto(char rp)%d%Creset %s %Cgreen(char lp)%ad(char rp) %C(char lp)bold blue(char rp)<%an>%Creset' --date=short
-export alias alog = arc log --oneline --decorate --graph
-export alias aloga = arc log --oneline --decorate --graph --all
-export alias alol = arc log --graph $'--pretty=%Cred%h%Creset -%C(char lp)auto(char rp)%d%Creset %s %Cgreen(char lp)%ar(char rp) %C(char lp)bold blue(char rp)<%an>%Creset'
-export alias alola = arc log --graph $'--pretty=%Cred%h%Creset -%C(char lp)auto(char rp)%d%Creset %s %Cgreen(char lp)%ar(char rp) %C(char lp)bold blue(char rp)<%an>%Creset' --all
-export alias alols = arc log --graph $'--pretty=%Cred%h%Creset -%C(char lp)auto(char rp)%d%Creset %s %Cgreen(char lp)%ar(char rp) %C(char lp)bold blue(char rp)<%an>%Creset' --stat
+export alias alo = arc log --oneline
+export alias alog = arc log --oneline --graph
+export alias alol = arc log --graph
+export alias alols = arc log --stat
 
 export alias am = arc merge
 export alias amtl = arc mergetool --no-prompt
@@ -148,7 +143,7 @@ export alias astc = arc stash clear
 export alias astd = arc stash drop
 export alias astl = arc stash list
 export alias astp = arc stash pop
-export alias asts = arc stash show --text
+export alias asts = arc stash show
 export alias astu = asta --include-untracked
 export alias astall = arc stash --all
 
