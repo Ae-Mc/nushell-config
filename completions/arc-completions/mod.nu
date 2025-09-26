@@ -136,19 +136,6 @@ def "nu-complete arc mergable sources" [] {
   }
 }
 
-def "nu-complete arc switch" [] {
-  use arc-completion-utils *
-  let branches = get-mergable-sources
-  {
-    options: {
-        case_sensitive: false,
-        completion_algorithm: prefix,
-        sort: false,
-    },
-    completions: $branches
-  }
-}
-
 def "nu-complete arc checkout" [context: string, position?:int] {
   use arc-completion-utils *
   let preceding = $context | str substring ..$position
@@ -198,7 +185,7 @@ def "nu-complete arc rebase" [] {
 }
 
 def "nu-complete arc stash-list" [] {
-  arc stash list | lines | parse "{value}: {description}"
+  arc stash list | lines | parse -r '\w* (?P<value>[^:]*): (?P<description>.*)'
 }
 
 def "nu-complete arc tags" [] {
@@ -453,27 +440,6 @@ export extern "arc pull" [
   --upload-pack: string                              # specify non-default path for upload-pack on the remote
   --progress                                         # force progress status even if stderr is not a terminal
   --server-option(-o): string                        # transmit the given string to the server
-]
-
-# Switch between branches and commits
-export extern "arc switch" [
-  switch?: string@"nu-complete arc switch"        # name of branch to switch to
-  --create(-c)                                    # create a new branch
-  --detach(-d): string@"nu-complete arc log"      # switch to a commit in a detached state
-  --force-create(-C): string                      # forces creation of new branch, if it exists then the existing branch will be reset to starting point
-  --force(-f)                                     # alias for --discard-changes
-  --guess                                         # if there is no local branch which matches then name but there is a remote one then this is checked out
-  --ignore-other-worktrees                        # switch even if the ref is held by another worktree
-  --merge(-m)                                     # attempts to merge changes when switching branches if there are local changes
-  --no-guess                                      # do not attempt to match remote branch names
-  --no-progress                                   # do not report progress
-  --no-recurse-submodules                         # do not update the contents of sub-modules
-  --no-track                                      # do not set "upstream" configuration
-  --orphan: string                                # create a new orphaned branch
-  --progress                                      # report progress status
-  --quiet(-q)                                     # suppress feedback messages
-  --recurse-submodules                            # update the contents of sub-modules
-  --track(-t)                                     # set "upstream" configuration
 ]
 
 # Apply the change introduced by an existing commit
