@@ -92,7 +92,7 @@ export def amom [] {
 
 export alias ap = arc push
 export alias apd = arc push --dry-run
-export alias apf = arc push --force-with-lease
+export alias apf = arc push --force
 export alias apf! = arc push --force
 export alias apl = arc pull
 export def apoat [] {
