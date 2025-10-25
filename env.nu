@@ -46,6 +46,7 @@ match $os {
             if (lsb_release -i | str downcase) =~ 'ubuntu' {
                 $is_ubuntu = true
                 _prepend_path_if_exists '~/.local/bin/'
+                _prepend_path_if_exists '/usr/bin'
             }
         }
     }
