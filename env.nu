@@ -50,6 +50,9 @@ match $os {
             }
         }
     }
+    'macos' => {
+        _prepend_path_if_exists '~/.local/bin/'
+    }
 }
 
 # External modules installation
@@ -88,8 +91,13 @@ let packages = match $os {
             print {"Unsupported platform! Use at your own risk!"}
         }
     }
-    * => {
-        print {"Unsupported platform! Use at your own risk!"}
+    'macos' => {
+	carapace: 'brew install carapace'
+    	oh-my-posh: 'brew install oh-my-posh'
+	zoxide: 'curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh'
+    }
+    _ => {
+        default: 'print {"Unsupported platform! Use at your own risk!"}'
     }
 } | transpose cmd install
 
