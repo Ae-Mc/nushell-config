@@ -28,6 +28,5 @@ $env.config.completions.algorithm = 'fuzzy'
 $env.config.highlight_resolved_externals = true
 $env.config.color_config.shape_external = 'red_bold'
 
-alias cd = z
 use aliases/arc/ *
 use aliases/git/ *
