@@ -2,6 +2,7 @@
 !/config.nu
 !/env.nu
 !/.gitignore
+!/sources-generator.nu
 !/aliases
 !/aliases/**
 !/completions

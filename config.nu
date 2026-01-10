@@ -22,11 +22,7 @@ let oh_my_posh_theme = $oh_my_posh | path join themes 1_shell.omp.json
 oh-my-posh init nu --config $oh_my_posh_theme
 source ($nu.data-dir | path join .zoxide.nu)
 
-use completions/arc-completions/ *
-use completions/zoxide-completions.nu *
+source .sources.nu
 $env.config.completions.algorithm = 'fuzzy'
 $env.config.highlight_resolved_externals = true
 $env.config.color_config.shape_external = 'red_bold'
-
-use aliases/arc/ *
-use aliases/git/ *
