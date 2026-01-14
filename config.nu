@@ -22,7 +22,8 @@ let oh_my_posh_theme = $oh_my_posh | path join themes 1_shell.omp.json
 oh-my-posh init nu --config $oh_my_posh_theme
 source ($nu.data-dir | path join .zoxide.nu)
 
-source .sources.nu
+source ($nu.data-dir | path join .sources.nu)
 $env.config.completions.algorithm = 'fuzzy'
 $env.config.highlight_resolved_externals = true
 $env.config.color_config.shape_external = 'red_bold'
+$env.config.color_config.shape_external_resolved = 'yellow'

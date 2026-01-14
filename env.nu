@@ -124,5 +124,5 @@ $env.CARAPACE_BRIDGES = 'inshellisense' # optional
 const CARAPACE_INIT = ($AUTOLOAD_DIR | path join 'carapace-init.nu')
 carapace _carapace nushell | save -f $CARAPACE_INIT
 
-const SOURCES_GENERATOR = ($nu.data-dir | path join sources-generator.nu) 
+const SOURCES_GENERATOR = ($nu.config-path | path dirname | path join sources-generator.nu) 
 source $SOURCES_GENERATOR
