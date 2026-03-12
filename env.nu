@@ -95,7 +95,7 @@ let packages = match $os {
     'macos' => {
 	carapace: 'brew install carapace'
     	oh-my-posh: 'brew install oh-my-posh'
-	zoxide: 'curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh'
+	zoxide: 'brew install zoxide'
     }
     _ => {
         default: 'print {"Unsupported platform! Use at your own risk!"}'
