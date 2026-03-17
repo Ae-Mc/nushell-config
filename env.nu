@@ -53,6 +53,7 @@ match $os {
     'macos' => {
         _prepend_path_if_exists '~/.local/bin'
         _prepend_path_if_exists '~/Library/flutter/bin'
+        _prepend_path_if_exists '/opt/homebrew/bin'
     }
 }
 
