@@ -6,13 +6,13 @@ for command in $commands {
     if (which $command | is-not-empty) {
         let alias_path = $nu.config-path | path dirname | path join 'aliases' | path join $command
         let completions_path = $nu.config-path | path dirname | path join 'completions' | path join $'($command)-completions'
-        if ($alias_path | path exists) {
-            $sources ++= [$alias_path]
-        }
         if ($'($completions_path).nu' | path exists) {
             $sources ++= [$'($completions_path).nu']
         } else if ($'($completions_path)/' | path exists) {
             $sources ++= [$'($completions_path)/']
+        }
+        if ($alias_path | path exists) {
+            $sources ++= [$alias_path]
         }
     } else {
     }
