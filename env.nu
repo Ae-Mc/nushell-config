@@ -54,6 +54,9 @@ match $os {
         _prepend_path_if_exists '~/.local/bin'
         _prepend_path_if_exists '~/Library/flutter/bin'
         _prepend_path_if_exists '/opt/homebrew/bin'
+	_prepend_path_if_exists '/usr/local/bin'
+	_prepend_path_if_exists '/bin'
+	_prepend_path_if_exists '/usr/bin'
     }
 }
 
