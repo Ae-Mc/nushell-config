@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "transient_prompt": {
-    "template": "\ue285 ",
-    "foreground": "#FEF5ED",
+    "template": "{{ now | date \"15:04:05\" }} \ue285",
+    "foreground": "#00FF00",
     "background": "transparent"
   },
   "upgrade": {
