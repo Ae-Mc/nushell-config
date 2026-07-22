@@ -76,6 +76,7 @@ export alias alg = arc log --stat
 export alias algp = arc log --stat --patch
 export alias algg = arc log --graph
 export alias algm = arc log --graph --max-count=10
+export alias alm = arc pull (arc_main_branch)
 export alias alo = arc log --oneline
 export alias alog = arc log --oneline --graph
 export alias alol = arc log --graph
