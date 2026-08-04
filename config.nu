@@ -20,6 +20,18 @@
 let oh_my_posh = $nu.config-path | path dirname | path join oh-my-posh
 let oh_my_posh_theme = $oh_my_posh | path join themes 1_shell.omp.json
 oh-my-posh init nu --config $oh_my_posh_theme
+
+# Nushell renders the transient prompt while preparing the primary prompt, so
+# refresh its timestamp immediately before the submitted command starts.
+$env.config.hooks.pre_execution = (
+    $env.config.hooks.pre_execution?
+    | default []
+    | append {||
+        let command_start = date now | format date '%H:%M:%S'
+        print -n $"(ansi cursor_up)\r(ansi '#00FF00')($command_start)(ansi reset)(ansi cursor_down)\r"
+    }
+)
+
 source ($nu.data-dir | path join .zoxide.nu)
 
 source ($nu.data-dir | path join .sources.nu)
