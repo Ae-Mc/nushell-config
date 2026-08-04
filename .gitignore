@@ -3,6 +3,7 @@
 !/env.nu
 !/.gitignore
 !/sources-generator.nu
+!/AGENTS.md
 !/aliases
 !/aliases/**
 !/completions
