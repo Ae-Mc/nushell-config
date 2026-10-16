@@ -133,3 +133,7 @@ carapace _carapace nushell | save -f $CARAPACE_INIT
 
 const SOURCES_GENERATOR = ($nu.config-path | path dirname | path join sources-generator.nu) 
 source $SOURCES_GENERATOR
+
+# Optional machine-specific environment settings.
+const ENV_LOCAL = ($nu.config-path | path dirname | path join env.local.nu)
+source-env (if ($ENV_LOCAL | path exists) { $ENV_LOCAL })
