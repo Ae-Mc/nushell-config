@@ -69,7 +69,6 @@ export alias acpc = arc cherry-pick --continue
 export alias acps = arc cherry-pick --skip
 
 export alias ad = arc diff
-export alias adb = arc diff --base
 export alias adca = arc diff --cached
 export alias ads = arc diff --staged
 export alias adw = arc diff --ignore-all-space
